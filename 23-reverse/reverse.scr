@@ -1,0 +1,30 @@
+
+start		w Y write-eof
+write-eof	w G catch
+
+catch		jrb catch-red catch-blue cleanup
+catch-red	jyg catched-red ASSERT catch-write-red
+catch-blue	jyg catched-blue ASSERT catch-write-blue
+catch-write-red	w R catch
+catch-write-blue w B catch
+
+catched-red	w Y cdr-pass
+cdr-pass	jrb cdr-pass-red cdr-pass-blue cdr-passed
+cdr-pass-red	w R cdr-pass
+cdr-pass-blue	w B cdr-pass
+cdr-passed	w R catch-eof
+
+catched-blue	w Y cdb-pass
+cdb-pass	jrb cdb-pass-red cdb-pass-blue cdb-passed
+cdb-pass-red	w R cdb-pass
+cdb-pass-blue	w B cdb-pass
+cdb-passed	w B catch-eof
+
+catch-eof	jyg ASSERT write-eof ASSERT
+
+cleanup		jyg c-pass ASSERT ASSERT
+c-pass		jrb c-pass-red c-pass-blue c-passed
+c-pass-red	w R c-pass
+c-pass-blue	w B c-pass
+c-passed	jyg ASSERT ACCEPT ASSERT
+
