@@ -13,15 +13,15 @@ init		w G 0xx
 
 0xx		w G 0xx-s
 0xx-s		jrb 0xx-rc 0xx-bc 0xx-f
-0xx-rc		jyg ASSERT 00x 0xx-rw
-0xx-bc		jyg ASSERT 01x 0xx-bw
+0xx-rc		jgy 00x ASSERT 0xx-rw
+0xx-bc		jgy 01x ASSERT 0xx-bw
 0xx-rw		w R 0xx-s
 0xx-bw		w B 0xx-s
 
 1xx		w G 1xx-s
 1xx-s		jrb 1xx-rc 1xx-bc 1xx-f
-1xx-rc		jyg ASSERT 10x 1xx-rw
-1xx-bc		jyg ASSERT 11x 1xx-bw
+1xx-rc		jgy 10x ASSERT 1xx-rw
+1xx-bc		jgy 11x ASSERT 1xx-bw
 1xx-rw		w R 1xx-s
 1xx-bw		w B 1xx-s
 
@@ -32,29 +32,29 @@ init		w G 0xx
 
 00x		w G 00x-s
 00x-s		jrb 00x-rc 00x-bc 00x-rc
-00x-rc		jyg ASSERT 000 00x-rw
-00x-bc		jyg ASSERT 001 00x-bw
+00x-rc		jgy 000 ASSERT 00x-rw
+00x-bc		jgy 001 ASSERT 00x-bw
 00x-rw		w R 00x-s
 00x-bw		w B 00x-s
 
 01x		w G 01x-s
 01x-s		jrb 01x-rc 01x-bc 01x-rc
-01x-rc		jyg ASSERT 010 01x-rw
-01x-bc		jyg ASSERT 011 01x-bw
+01x-rc		jgy 010 ASSERT 01x-rw
+01x-bc		jgy 011 ASSERT 01x-bw
 01x-rw		w R 01x-s
 01x-bw		w B 01x-s
 
 10x		w G 10x-s
 10x-s		jrb 10x-rc 10x-bc 10x-rc
-10x-rc		jyg ASSERT 100 10x-rw
-10x-bc		jyg ASSERT 101 10x-bw
+10x-rc		jgy 100 ASSERT 10x-rw
+10x-bc		jgy 101 ASSERT 10x-bw
 10x-rw		w R 10x-s
 10x-bw		w B 10x-s
 
 11x		w G 11x-s
 11x-s		jrb 11x-rc 11x-bc 11x-rc
-11x-rc		jyg ASSERT 110 11x-rw
-11x-bc		jyg ASSERT 111 11x-bw
+11x-rc		jgy 110 ASSERT 11x-rw
+11x-bc		jgy 111 ASSERT 11x-bw
 11x-rw		w R 11x-s
 11x-bw		w B 11x-s
 
@@ -79,12 +79,12 @@ init		w G 0xx
 0xx-c		jrb 0xx-cr 0xx-cb 0xx-cd
 0xx-cr		w R 0xx-c
 0xx-cb		w B 0xx-c
-0xx-cd		jyg ASSERT 0xx ASSERT
+0xx-cd		jgy 0xx ASSERT ASSERT
 
 1xx-c		jrb 1xx-cr 1xx-cb 1xx-cd
 1xx-cr		w R 1xx-c
 1xx-cb		w B 1xx-c
-1xx-cd		jyg ASSERT 1xx ASSERT
+1xx-cd		jgy 1xx ASSERT ASSERT
 
 ### ENDGAME ###
 
@@ -96,25 +96,25 @@ init		w G 0xx
 # <B> <C>
 # A is empty, prefix C with B
 
-0xx-f		jyg ASSERT 0xx-fm1 ASSERT
+0xx-f		jgy 0xx-fm1 ASSERT ASSERT
 0xx-fi1		w G 0xx-fm1
 0xx-fm1		jrb 0xx-fr1 0xx-fb1 0xx-fd1
 0xx-fr1		w R 0xx-fm1
 0xx-fb1		w B 0xx-fm1
-0xx-fd1		jyg ASSERT 0xx-fm2 ASSERT
+0xx-fd1		jgy 0xx-fm2 ASSERT ASSERT
 0xx-fm2		jrb 0xx-fr2 0xx-fb2 0xx-fd2
 0xx-fr2		w R 0xx-fm2
 0xx-fb2		w B 0xx-fm2
-0xx-fd2		jyg ASSERT ACCEPT ASSERT
+0xx-fd2		jgy ACCEPT ASSERT ASSERT
 
 # A is empty, prefix C with B+1
 # G <B> G <C> G
-1xx-f		jyg ASSERT 1xx-fs ASSERT
+1xx-f		jgy 1xx-fs ASSERT ASSERT
 # <B> G <C> G
 1xx-fi		w G 1xx-fs
 1xx-fs		jrb 1xx-frc 1xx-fbc 1xx-ff
-1xx-frc		jyg ASSERT 1f0 1xx-frw
-1xx-fbc		jyg ASSERT 1f1 1xx-fbw
+1xx-frc		jgy 1f0 ASSERT 1xx-frw
+1xx-fbc		jgy 1f1 ASSERT 1xx-fbw
 1xx-frw		w R 1xx-fs
 1xx-fbw		w B 1xx-fs
 # <C> G <B>
@@ -131,16 +131,16 @@ init		w G 0xx
 0fx-c		jrb 0fx-cr 0fx-cb 0fx-cd
 0fx-cr		w R 0fx-c
 0fx-cb		w B 0fx-c
-0fx-cd		jyg ASSERT 0xx-fi1 ASSERT
+0fx-cd		jgy 0xx-fi1 ASSERT ASSERT
 
 1fx-c		jrb 1fx-cr 1fx-cb 1fx-cd
 1fx-cr		w R 1fx-c
 1fx-cb		w B 1fx-c
-1fx-cd		jyg ASSERT 1xx-fi ASSERT
+1fx-cd		jgy 1xx-fi ASSERT ASSERT
 
 # G <C> G
 # A and B are empty, add final carry bit
-1xx-ff		jyg ASSERT 1xx-ff1 ASSERT
+1xx-ff		jgy 1xx-ff1 ASSERT ASSERT
 1xx-ff1		w B 0ff-c
 
 # <C> G
@@ -149,5 +149,5 @@ init		w G 0xx
 0ff-c		jrb 0ff-cr 0ff-cb 0ff-cd
 0ff-cr		w R 0ff-c
 0ff-cb		w B 0ff-c
-0ff-cd		jyg ASSERT ACCEPT ASSERT
+0ff-cd		jgy ACCEPT ASSERT ASSERT
 
